@@ -1,0 +1,27 @@
+#!/bin/csh
+#
+set mshock = $1
+set egf = $2
+#
+./iterdecon <<EOF
+./$mshock
+./$egf
+1200
+100.0
+0.0
+0.2
+0
+0
+EOF
+#
+# the output of the deconvolution code is called "decon.out"
+# move that file to avoid overwriting this result
+#
+set out = `echo $mshock | sed 's/mshock-//g'`
+mv -f decon.out $out\_iter\_g1.stf
+#
+#
+# cleanup
+#
+rm numerator denominator observed predicted 
+#
